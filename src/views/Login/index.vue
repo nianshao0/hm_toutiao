@@ -79,6 +79,11 @@ export default {
         console.log(res)
         Notify({ type: 'success', message: '登录成功啦！！！' })
         setToken(res.data.data.token)
+        // 跳转一定要写在最后->尽量最后执行
+        // loaction.href -> 当前浏览器地址和要跳转的地址不一样(不包含#后面锚点信息) -> 不会刷新网页
+        // 地址改变，就会导致网页刷新
+        // this.$router.push() 压栈(会产生历史记录，可以回退),this.$router.replace() 替换(不会产生历史记录)
+        this.$router.replace({ path: '/layout/home' }) // 因为我们路由规则里/layout里没用重定向，所以直接在这里写全
       } catch (err) {
         // Promise内ajax抛出错误，直接进入这里
         Notify({ type: 'danger', message: '账号或密码错误' })
